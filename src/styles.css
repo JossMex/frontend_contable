@@ -1,1 +1,209 @@
-/* You can add global styles to this file, and also import other style files */
+/*--- Variable corporativas --- */
+:root{
+  --azul-primario: #1A3A5C;
+  --azul-secundario: #2C5F8A;
+  --azul-claro: #E8F0F7;
+  --gris-oscuro: #2D3748;
+  --gris-medio: #718096;
+  --gris-claro: #F7F9FC;
+  --blanco: #FFFFFF;
+  --acento: #C8A96E; /* dorado para detalles */
+  --texto-primary: #1A202C;
+  --texto-secondary: #4A5568;
+}
+
+/*---Reset y bases---*/
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  color: var(--texto-primary);
+  background: var(--blanco);
+  line-height: 1.6;
+}
+
+/*---Tipografía---*/
+h1, h2, h3, h4, h5 {
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--azul-primario);
+}
+
+h1 { font-size: 2.5rem;}
+h2 { font-size: 2rem;}
+h3 { font-size: 1.5rem;}
+
+p { color: var(--texto-secondary);}
+
+a{
+  color: var(--azul-secundario);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {color: var(--azul-primario);}
+
+/*---Botones corporativos---*/
+.btn-corporativo {
+  background: var(--azul-primario);
+  color: var(--blanco);
+  border: none;
+  padding: 12px 28px;
+  border-radius: 4px;
+  font-size: .095rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  letter-spacing: 0.5px;
+}
+
+.btn-corporativo:hover {
+  background: var(--azul-secundario);
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--azul-primario);
+  border: 2px solid var(--azul-primario);
+  padding: 10px 26px;
+  border-radius: 4px;
+  font-size: .95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-outline:hover {
+  background: var(--azul-secundario);
+  color: var(--blanco);
+}
+
+.btn-acento {
+  background: var(--acento);
+  color: var(--blanco);
+  border: none;
+  padding: 12px 28px;
+  border-radius: 4px;
+  font-size: .95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+/*---Secciones---*/
+.seccion {
+  padding: 80px 0;
+}
+
+.seccion-gris {
+  background: var(--gris-claro);
+  padding: 80px 0;
+}
+
+.seccion-azul {
+  background: var(--azul-primario);
+  color: var(--blanco);
+  padding: 80px 0;
+}
+
+.seccion-titulo {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.seccion-titulo h2 {
+  font-size: 2rem;
+  color: var(--azul-primario);
+  margin-bottom: 12px;
+}
+
+.seccion-titulo .linea-decorativa {
+  width: 60px;
+  height: 3px;
+  background: var(--acento);
+  margin: 0 auto 16px;
+  border-radius: 2px;
+}
+
+.seccion-titulo p {
+  color: var(--gris-medio);
+  font-size: 1.05rem;
+  max-width: 550px;
+  margin: 0 auto;
+}
+
+/*---Cards---*/
+.card-corporativa {
+  background: var(--blanco);
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 32px;
+  transition: box-shadow 0.2s, transform 0.2s;
+  height: 100%;
+}
+
+.card-corporativa:hover {
+  box-shadow: 0 8px 30px rgba(26, 58, 92, 0.1);
+  transform: translateY(-3px);
+}
+
+/*---Formularios---*/
+.form-corporativo .form-control {
+  border: 1px solid #CBD5E0;
+  border-radius: 4px;
+  padding: 12px 16px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-corporativo .form-control:focus {
+  border-color: var(--azul-secundario);
+  box-shadow: 0 0 0 3px rgba(44, 95, 138, 0.15);
+  outline: none;
+}
+
+.form-corporativo label {
+  font-weight: 600;
+  color: var(--gris-oscuro);
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+}
+
+/* ── Badges ───────────────────────────────────── */
+.badge-publicado {
+  background: #C6F6D5;
+  color: #276749;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.badge-borrador {
+  background: #FEFCBF;
+  color: #744210;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.badge-no-leido {
+  background: var(--azul-primario);
+  color: var(--blanco);
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+/* ── Utilidades ───────────────────────────────── */
+.texto-acento { color: var(--acento); }
+.texto-azul   { color: var(--azul-primario); }
+.bg-azul      { background: var(--azul-primario); }
+.divider      { border: none; border-top: 1px solid #E2E8F0; margin: 24px 0; }
