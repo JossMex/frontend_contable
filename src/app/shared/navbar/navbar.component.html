@@ -1,0 +1,49 @@
+<nav class="navbar-corporativo" [class.scrolled]="scrolled">
+  <div class="container">
+    <div class="navbar-inner">
+
+      <!--Logo-->
+      <a routerLink="/" class="navbar-logo" (click)="cerrarMenu()">
+        <span class="logo-icono">⚖️</span>
+        <div class="logo-texto">
+          <span class="logo-nombre">Despacho Contable</span>
+          <span class="logo-slogan">Asesoría Fiscal y Contable</span>
+        </div>
+      </a>
+
+      <!-- Links de navegación -->
+      <ul class="navbar-links" [class.abierto]="menuAbierto">
+        <li>
+          <a routerLink="/" routerLinkActive="activo" [routerLinkActiveOptions]="{exact:true}" (click)="cerrarMenu()">
+            Inicio
+          </a>
+        </li>
+        <li>
+          <a routerLink="/blog" routerLinkActive="activo" (click)="cerrarMenu()">
+            Blog
+          </a>
+        </li>
+        <li>
+          <a routerLink="/contacto" routerLinkActive="activo" (click)="cerrarMenu()">
+            Contacto
+          </a>
+        </li>
+        <li>
+          <a routerLink="/admin/login" class="btn-nav-admin" (click)="cerrarMenu()">
+            Acceso Admin
+          </a>
+        </li>
+      </ul>
+
+      <!-- Botón de hamburguesa móvil -->
+      <button class="navbar-hamburguesa" title="btn-hamburguesa" (click)="toggleMenu()" [class.activo]="menuAbierto">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Espaciador para compensar el navbar fijo -->
+<div class="navbar-espaciador"></div>

@@ -1,0 +1,61 @@
+<div class="login-page">
+
+  <!-- Panel izquierdo decorativo -->
+  <div class="login-left">
+    <div class="login-left-content">
+      <div class="login-logo">⚖️</div>
+      <h1>Despacho Contable</h1>
+      <p>Panel de Administración</p>
+      <div class="login-features">
+        <div class="feature">
+          <span>📊</span>
+          <span>Gestiona tus Servicios</span>
+        </div>
+        <div class="feature">
+          <span>📝</span>
+          <span>Adminstra el blog</span>
+        </div>
+        <div class="feature">
+          <span>📬</span>
+          <span>Revisa los mesajes</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Panel derecho: formulario -->
+  <div class="login-right">
+    <div class="login-form-wrapper">
+
+      <h2>Iniciar Sesión</h2>
+      <p class="login-subtitulo">Accede al panel de administración</p>
+
+      <!-- Error -->
+      <div *ngIf="error" class="login-erros">
+        ⚠️ {{ error }}
+      </div>
+
+      <!-- Email -->
+      <div class="campo">
+        <label>Correo electrónico</label>
+        <input type="emial" [(ngModel)]="email" name="email" placeholder="admin@despacho.com" (keyup.enter)="login()">
+      </div>
+
+      <!-- Password -->
+      <div class="campo">
+        <label>Contraseña</label>
+        <input type="password" [(ngModel)]="password" name="password" placeholder="••••••••" (keyup.enter)="login()">
+      </div>
+
+      <!-- Botón -->
+      <button class="btn-login" (click)="login()" [disabled]="cargando">
+        {{ cargando ? 'Verificando...' : 'Iniciar Sesion'}}
+      </button>
+
+      <!-- Volver -->
+      <a routerLink="/" class="login-volver">
+        ← Volver al portal
+      </a>
+    </div>
+  </div>
+</div>
