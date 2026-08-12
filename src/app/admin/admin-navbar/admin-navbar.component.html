@@ -1,0 +1,48 @@
+<nav class="admin-navbar">
+  <div class="admin-navbar-inner">
+
+    <!-- logo -->
+    <a routerLink="/admin/dashboard" class="admin-logo">
+      <span>⚖️</span>
+      <div>
+        <span class="admin-logo-nombre">Despacho Admin</span>
+        <span class="admin-logo-sub">Panel de Control</span>
+      </div>
+    </a>
+
+    <!-- links -->
+    <ul class="admin-links">
+      <li>
+        <a routerLink="/admin/dashboard" routerLinkActive="activo" [routerLinkActiveOptions]="{exact: true}">
+          📊 Dashboard
+        </a>
+      </li>
+      <li>
+        <a routerLink="/admin/servicios" routerLinkActive="activo">
+          🛠️ Servicios
+        </a>
+      </li>
+      <li>
+        <a routerLink="/admin/articulos" routerLinkActive="activo">
+          📝 Blog
+        </a>
+      </li>
+      <li>
+        <a routerLink="/admin/mensajes" routerLinkActive="activo" class="link-mensajes">
+          📩 Mensajes
+          <span *ngIf="noLeidos > 0" class="badge-noLeidos">
+            {{ noLeidos}}
+          </span>
+        </a>
+      </li>
+    </ul>
+
+    <!-- Usuario y logout -->
+    <div class="admin-usuario">
+      <span class="admin-nombre">👤 {{ nombre }}</span>
+      <button class="btn-logout" (click)="logout()">
+        Cerrar Sesión
+      </button>
+    </div>
+  </div>
+</nav>

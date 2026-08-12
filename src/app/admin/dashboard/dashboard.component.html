@@ -1,0 +1,97 @@
+<app-admin-navbar></app-admin-navbar>
+
+<div class="dashboard-page">
+  <div class="container">
+
+    <!-- Bienvenida -->
+    <div class="dashboard-header">
+      <div>
+        <h1>Bienvenido {{ nombre }} 👋</h1>
+        <p>Aquí tienes un resumen de tu portal</p>
+      </div>
+      <div class="dashboard-fecha">
+        {{ hoy | date: 'EEEE, d MMMM yyyy': '': 'es' }}
+      </div>
+    </div>
+
+    <!-- Spinner -->
+    <div *ngIf="cargando" class="text-center py-5">
+      <div class="spinner-border text-primary"></div>
+    </div>
+
+    <!-- Cards de estadisticas -->
+    <div *ngIf="!cargando" class="stats-grid">
+      <div class="stat-card" (click)="irA('/admin/servicios')">
+        <div class="stat-icon azul">🛠️</div>
+        <div class="stat-info">
+          <span class="stat-numero">{{ totalServicios}}</span>
+          <span class="stat-label">Servicios</span>
+        </div>
+        <div class="stat-arrow">→</div>
+      </div>
+
+      <div class="stat-card" (click)="irA('/admin/articulos')">
+        <div class="stat-icon verde">📝</div>
+        <div class="stat-info">
+          <span class="stat-numero">{{ totalArticulos }}</span>
+          <span class="stat-label">Artículos</span>
+        </div>
+        <div class="stat-arrow">→</div>
+      </div>
+
+      <div class="stat-card" [class.tiene-noLeidos]="mensajesNoLeidos > 0" (click)="irA('/admin/mensajes')">
+        <div class="stat-icono dorado">📬</div>
+        <div class="stat-info">
+          <span class="stat-numero">{{ mensajesNoLeidos }}</span>
+          <span class="stat-label">Sin leer</span>
+        </div>
+        <div class="stat-arrow"></div>
+      </div>
+
+    </div>
+    <!-- Acciones rápidas -->
+    <div *ngIf="!cargando" class="acciones-rapidas">
+      <h3>Acciones Rápidas</h3>
+      <div class="acciones-grid">
+
+        <button class="accino-btn" (click)="irA('/admin/servicios')">
+          <span class="accin-icono">🛠️</span>
+          <div>
+            <span class="accion-titulo">Gestionar Servicios</span>
+            <span class="accion-desc">Agregar, editar o desactivar servicios</span>
+          </div>
+        </button>
+
+        <button class="accion-btn" (click)="irA('/admin/articulos')">
+          <span class="accion-icono">📝</span>
+          <div>
+            <span class="accion-titulo">Gestionar Blog</span>
+            <span class="accion-desc">Crear y publicar artículos</span>
+          </div>
+        </button>
+
+        <button class="accion-btn" (click)="irA('/admin /mensajes')">
+          <span class="accion-icono">📬</span>
+          <div>
+            <span class="accion-titulo">Ver mensajes</span>
+            <span class="accion-desc">
+              {{ mensajesNoLeidos > 0
+              ? mensajesNoLeidos + ' mensajes sin leer'
+              : 'Bandeja de entrada' }}
+            </span>
+          </div>
+        </button>
+
+        <button class="accion-btn" (click)="irA('/')">
+          <span class="accion-icono">🌐</span>
+          <div>
+            <span class="accion-titulo">Ver Portal</span>
+            <span class="accion-desc">Cómo ven el portal los visitantes</span>
+          </div>
+        </button>
+
+      </div>
+    </div>
+
+  </div>
+</div>
