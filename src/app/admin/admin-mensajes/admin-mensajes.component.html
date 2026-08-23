@@ -1,0 +1,129 @@
+<app-admin-navbar></app-admin-navbar>
+
+<div class="admin-page">
+  <div class="container">
+
+    <!-- Header -->
+    <div class="admin-page-header">
+      <div>
+        <h2>📬 Mensajes de Contacto</h2>
+        <p>
+          {{ noLeidos > 0
+          ? noLeidos + ' mensaje(s) sin leer'
+          : 'Todos los mensajes leídos' }}
+        </p>
+      </div>
+      <button class="btn-secondary" (click)="cargarMensajes()">
+        🔄 Actualizar
+      </button>
+    </div>
+
+    <!-- Alertas -->
+    <div *ngIf="mensaje" class="alerta alerta-exito">
+      ✅ {{ mensaje }}
+      <button (click)="mensaje=''">✕</button>
+    </div>
+    <div *ngIf="error" class="alerta alerta-error">
+      ⚠️ {{ error }}
+      <button (click)="error=''">✕</button>
+    </div>
+
+    <!-- Spinner -->
+    <div *ngIf="cargando" class="text-center py-5">
+      <div class="spinner-border text-primary"></div>
+    </div>
+
+    <!-- Lista de mensajes -->
+    <div *ngIf="!cargando" class="mensajes-lista">
+
+      <div *ngIf="mensajes.length === 0" class="sin-mensajes">
+        📭 No hay mensajes de contacto todavía
+      </div>
+
+      <div *ngFor="let m of mensajes" class="mensaje-item" [class.no-leido]="!m.leido" (click)="verDetalle(m)">
+
+        <div class="mensaje-avatar">
+          {{ m.nombre.charAt(0).toUpperCase() }}
+        </div>
+
+        <div class="mensaje-info">
+          <div class="mensaje-cabecera">
+            <span class="mensaje-nombre">{{ m.nombre }}</span>
+            <span class="mensaje-fecha">
+              {{ m.createdAt | date:'dd/MM/yyyy HH:mm' }}
+            </span>
+          </div>
+          <div class="mensaje-asunto">
+            {{ m.asunto || 'Sin asunto' }}
+            <span *ngIf="!m.leido" class="badge-noLeido">Nuevo</span>
+          </div>
+          <div class="mensaje-preview">
+            {{ m.mensaje | slice:0:100 }}{{ m.mensaje.length > 100 ? '...' : '' }}
+          </div>
+        </div>
+
+        <div class="mensaje-acciones" (click)="$event.stopPropagation()">
+          <button class="btn-tabla" (click)="toggle(m)"
+            [title]="m.leido ? 'Marcar como no leído' : 'Marcar como leído'">
+            {{ m.leido ? '📩' : '📨' }}
+          </button>
+          <button class="btn-tabla" (click)="eliminar(m.id!)">
+            🗑️
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Modal detalle -->
+    <div *ngIf="mensajeSeleccionado" class="modal-overlay" (click)="cerrarDetalle()">
+      <div class="modal-contenido" (click)="$event.stopPropagation()">
+
+        <div class="modal-header">
+          <h3>📬 Mensaje de {{ mensajeSeleccionado.nombre }}</h3>
+          <button (click)="cerrarDetalle()">✕</button>
+        </div>
+
+        <div class="modal-body">
+          <div class="detalle-grid">
+            <div class="detalle-campo">
+              <label>Nombre</label>
+              <span>{{ mensajeSeleccionado.nombre }}</span>
+            </div>
+            <div class="detalle-campo">
+              <label>Email</label>
+              <span>{{ mensajeSeleccionado.email }}</span>
+            </div>
+            <div class="detalle-campo">
+              <label>Teléfono</label>
+              <span>{{ mensajeSeleccionado.telefono || 'No proporcionado' }}</span>
+            </div>
+            <div class="detalle-campo">
+              <label>Fecha</label>
+              <span>{{ mensajeSeleccionado.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
+            </div>
+            <div class="detalle-campo detalle-completo">
+              <label>Asunto</label>
+              <span>{{ mensajeSeleccionado.asunto || 'Sin asunto' }}</span>
+            </div>
+            <div class="detalle-campo detalle-completo">
+              <label>Mensaje</label>
+              <p class="detalle-mensaje">{{ mensajeSeleccionado.mensaje }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <a [href]="'mailto:' + mensajeSeleccionado.email" class="btn-corporativo">
+            ✉️ Responder por email
+          </a>
+          <button class="btn-secondary" (click)="cerrarDetalle()">
+            Cerrar
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

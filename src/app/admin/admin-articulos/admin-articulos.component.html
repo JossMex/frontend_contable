@@ -1,0 +1,123 @@
+<app-admin-navbar></app-admin-navbar>
+
+<div class="admin-page">
+  <div class="container">
+
+
+    <!-- Header -->
+    <div class="admin-page-header">
+      <div>
+        <h2>📝 Blog / Artículos</h2>
+        <p>Gestiona los artículos que se publican en el blog</p>
+      </div>
+      <button class="btn-corporativo" (click)="abrirFormularioNuevo()">
+        + Artículo Nuevo
+      </button>
+    </div>
+
+    <!-- Mensajes -->
+    <div *ngIf="mensaje" class="alerta alerta-exito">
+      ✅ {{ mensaje }}
+      <button (click)="mensaje=''">X</button>
+    </div>
+    <div *ngIf="error" class="alerta alerta-error">
+      ⚠️ {{ error }}
+      <button (click)="error=''">X</button>
+    </div>
+
+    <!-- Formulario -->
+    <div *ngIf="mostrarFormulario" class="formulario-card">
+      <h3>{{ editandoId ? '✏️ Editar Artículo' : '➕ Nuevo Artículo' }}</h3>
+
+      <div class="form-gird">
+        <div class="campo campo-completo">
+          <label>Título *</label>
+          <input type="text" [(ngModel)]="form.titulo" placeholder="Título del artículo">
+        </div>
+        <div class="campo campo-completo">
+          <label>Resumen</label>
+          <input type="text" [(ngModel)]="form.resumen" placeholder="Breve descripción para la tarjeta del blog">
+        </div>
+        <div class="campo campo-completo">
+          <label>Contenido</label>
+          <textarea [(ngModel)]="form.contenido" rows="8" placeholder="Escribe el contenido completo del artículo...">
+            </textarea>
+        </div>
+        <div class="campo">
+          <label>Estado</label>
+          <select title="publicado" [(ngModel)]="form.publicado">
+            <option [ngValue]="false">Borrador</option>
+            <option [ngValue]="true">Publicado</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label>URL de la imagen</label>
+          <input type="text" [(ngModel)]="form.imagenUrl" placeholder="https://...">
+        </div>
+      </div>
+
+      <div class="form-acciones">
+        <button class="btn-secondary" (click)="cancelar()">Cancelar</button>
+        <button class="btn-corporativo" (click)="guardar()">
+          {{ editandoId ? 'Actualizar' : 'Guardar'}}
+        </button>
+      </div>
+    </div>
+
+    <!-- Spinner -->
+    <div *ngIf="cargando" class="text-center py-5">
+      <div class="spinner-border text-primary"></div>
+    </div>
+
+    <!-- Tabla -->
+    <div *ngIf="!cargando" class="tabla-card">
+      <table class="tabla-admin">
+        <thead>
+          <tr>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Estado</th>
+            <th>Fecha</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="articulos.length === 0">
+            <td colspan="5" class="text-center text-muted py4">
+              No hay artículos registrados
+            </td>
+          </tr>
+          <tr *ngFor="let articulo of articulos">
+            <td>
+              <strong> {{ articulo.titulo }}</strong>
+              <p class="texto-resumen">{{ articulo.resumen }}</p>
+            </td>
+            <td>{{ articulo.autor?.nombre || '-' }}</td>
+            <td>
+              <span [class]="articulo.publicado ? 'badge-publicado' : 'badge-borrador'">
+                {{ articulo.publicado ? 'Publicado' : 'Borrador'}}
+              </span>
+            </td>
+            <td>
+              {{ articulo.fechaPublicacion
+              ? (articulo.fechaPublicacion | date:'dd/MM/yyyy')
+              : 'Sin publicar' }}
+            </td>
+            <td>
+              <div class="acciones-tabla">
+                <button class="btn-tabla" (click)="abrirFormularioEditar(articulo)" title="Editar">✏️</button>
+                <button class="btn-tabla" (click)="toggle(articulo)"
+                  [title]="articulo.publicado ? 'Despublicar' : 'Publicar'">
+                  {{ articulo.publicado ? '🔴' : '🟢' }}
+                </button>
+                <button class="btn-tabla" (click)="eliminar(articulo.id!)" title="Eliminar">🗑️</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="tabla-footer">Total: {{ articulos.length }} artículos</p>
+    </div>
+
+  </div>
+</div>

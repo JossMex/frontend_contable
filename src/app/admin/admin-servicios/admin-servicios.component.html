@@ -1,0 +1,115 @@
+<app-admin-navbar></app-admin-navbar>
+
+<div class="admin-page">
+  <div class="container">
+
+    <!-- Header -->
+    <div class="admin-page-header">
+      <div>
+        <h2>🛠️ Servicios</h2>
+        <p>Gestiona los servicios que se muestran en el portal</p>
+      </div>
+      <button class="btn-corporativo" (click)="abrirFormularioNuevo()">
+        + Nuevo Servicio
+      </button>
+    </div>
+
+    <!-- Mensajes -->
+    <div *ngIf="mensaje" class="alerta alerta-exito">
+      ✅ {{ mensaje }}
+      <button (click)="mensaje=''">✕</button>
+    </div>
+    <div *ngIf="error" class="alerta alerta-error">
+      ⚠️ {{ error }}
+      <button (click)="error=''">✕</button>
+    </div>
+
+    <!-- Formulario crear/editar -->
+    <div *ngIf="mostrarFormulario" class="formulario-card">
+      <h3>{{ editandoId ? '✏️ Editar Servicio' : '➕ Nuevo Servicio' }}</h3>
+
+      <div class="form-grid">
+        <div class="campo">
+          <label>Título *</label>
+          <input type="text" [(ngModel)]="form.titulo" placeholder="Ej: Contabilidad General">
+        </div>
+        <div class="campo">
+          <label>Ícono</label>
+          <input type="text" [(ngModel)]="form.icono" placeholder="Ej: calculator">
+        </div>
+        <div class="campo campo-completo">
+          <label>Descripción</label>
+          <textarea [(ngModel)]="form.descripcion" rows="3" placeholder="Describe brevemente este servicio...">
+          </textarea>
+        </div>
+        <div class="campo">
+          <label>Orden</label>
+          <input title="orden" type="number" [(ngModel)]="form.orden" min="0">
+        </div>
+        <div class="campo">
+          <label>Estado</label>
+          <select title="estado" [(ngModel)]="form.activo">
+            <option [ngValue]="true">Activo</option>
+            <option [ngValue]="false">Inactivo</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-acciones">
+        <button class="btn-secondary" (click)="cancelar()">Cancelar</button>
+        <button class="btn-corporativo" (click)="guardar()">
+          {{ editandoId ? 'Actualizar' : 'Guardar' }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Spinner -->
+    <div *ngIf="cargando" class="text-center py-5">
+      <div class="spinner-border text-primary"></div>
+    </div>
+
+    <!-- Tabla → FUERA del formulario -->
+    <div *ngIf="!cargando" class="tabla-card">
+      <table class="tabla-admin">
+        <thead>
+          <tr>
+            <th>Orden</th>
+            <th>Título</th>
+            <th>Descripción</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="servicios.length === 0">
+            <td colspan="5" class="text-center text-muted py-4">
+              No hay servicios registrados
+            </td>
+          </tr>
+          <tr *ngFor="let servicio of servicios" [class.fila-inactiva]="!servicio.activo">
+            <td class="text-center">{{ servicio.orden }}</td>
+            <td><strong>{{ servicio.titulo }}</strong></td>
+            <td class="texto-recortado">{{ servicio.descripcion || '-' }}</td>
+            <td>
+              <span [class]="servicio.activo ? 'badge-activo' : 'badge-inactivo'">
+                {{ servicio.activo ? 'Activo' : 'Inactivo' }}
+              </span>
+            </td>
+            <td>
+              <div class="acciones-tabla">
+                <button class="btn-tabla btn-editar" (click)="abrirFormularioEditar(servicio)">✏️</button>
+                <button class="btn-tabla btn-toggle" (click)="toggle(servicio)"
+                  [title]="servicio.activo ? 'Desactivar' : 'Activar'">
+                  {{ servicio.activo ? '🔴' : '🟢' }}
+                </button>
+                <button class="btn-tabla btn-eliminar" (click)="eliminar(servicio.id!)">🗑️</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="tabla-footer">Total: {{ servicios.length }} servicios</p>
+    </div>
+
+  </div>
+</div>
