@@ -1,0 +1,69 @@
+.page-banner {
+  background: linear-gradient(135deg, #1A3A5C, #2C5F8A);
+  color: white;
+  padding: 80px 0;
+  text-align: center;
+}
+
+.page-banner h1 { color: white; font-size: 2.5rem; margin-bottom: 12px; }
+.page-banner p  { color: rgba(255,255,255,0.8); font-size: 1.05rem; }
+
+.servicios-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.servicio-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 40px;
+  align-items: center;
+  padding: 40px;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 2px 12px rgba(26,58,92,0.06);
+}
+
+.servicio-invertido {
+  background: #F7F9FC;
+}
+
+.servicio-icono-grande {
+  font-size: 4rem;
+  width: 100px;
+  height: 100px;
+  background: #E8F0F7;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.servicio-contenido h2 {
+  font-size: 1.5rem;
+  color: #1A3A5C;
+  margin-bottom: 12px;
+}
+
+.servicio-contenido p {
+  color: #4A5568;
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 768px) {
+  .servicio-item { grid-template-columns: 1fr; text-align: center; }
+}
+
+.btn-corporativo {
+  background: white;
+  color: #4A5568;
+  border: 1px solid #CBD5E0;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}

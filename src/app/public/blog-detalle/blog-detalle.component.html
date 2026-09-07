@@ -1,0 +1,62 @@
+<app-navbar></app-navbar>
+
+<div class="container" style="max-width: 780px; padding: 60px 20px">
+
+  <div *ngIf="cargando" class="text-center py-5">
+    <div class="spinner-border text-primary"></div>
+  </div>
+
+  <div *ngIf="error" class="text-center py-5">
+    <p style="color: #718096; font-size: 1.1rem">{{ error }}</p>
+    <a routerLink="/blog" class="btn-corporativo" style="margin-top: 16px; display: inline-block">
+      ← Volver al blog
+    </a>
+  </div>
+
+  <article *ngIf="articulo && !cargando">
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a routerLink="/">Inicio</a>
+      <span>›</span>
+      <a routerLink="/blog">Blog</a>
+      <span>›</span>
+      <span>{{ articulo.titulo }}</span>
+    </div>
+
+    <!-- Título -->
+    <h1 class="articulo-titulo">{{ articulo.titulo }}</h1>
+
+    <!-- Meta -->
+    <div class="articulo-meta">
+      <span>✍️ {{ articulo.autor?.nombre }}</span>
+      <span>📅 {{ articulo.fechaPublicacion | date:'dd MMMM yyyy' }}</span>
+    </div>
+
+    <!-- Imagen -->
+    <img title="imagen" *ngIf="articulo.imagenUrl" [src]="articulo.imagenUrl" [alt]="articulo.titulo"
+      class="articulo-imagen">
+
+    <!-- Resumen -->
+    <p *ngIf="articulo.resumen" class="articulo-resumen">
+      {{ articulo.resumen }}
+    </p>
+
+    <hr class="divider">
+
+    <!-- Contenido -->
+    <div class="articulo-contenido">
+      {{ articulo.contenido }}
+    </div>
+
+    <!-- Volver -->
+    <div style="margin-top: 48px">
+      <a routerLink="/blog" class="btn-outline">
+        ← Volver al blog
+      </a>
+    </div>
+
+  </article>
+</div>
+
+<app-footer></app-footer>

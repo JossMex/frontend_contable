@@ -1,0 +1,49 @@
+<app-navbar></app-navbar>
+
+<!-- Banner -->
+<section class="page-banner">
+  <div class="container">
+    <h1>Nuestros Servicios</h1>
+    <p>Soluciones integrales de asesoría fiscal y contable para tu empresa</p>
+  </div>
+</section>
+
+<!-- Servicios -->
+<section class="seccion">
+  <div class="container">
+
+    <div *ngIf="cargando" class="text-center py-5">
+      <div class="spinner-border text-primary"></div>
+    </div>
+
+    <div *ngIf="!cargando" class="servicios-lista">
+      <div *ngFor="let servicio of servicios; let i = index" class="servicio-item"
+        [class.servicio-invertido]="i % 2 !== 0">
+        <div class="servicio-icono-grande">📋</div>
+        <div class="servicio-contenido">
+          <h2>{{ servicio.titulo }}</h2>
+          <p>{{ servicio.descripcion }}</p>
+          <a routerLink="/contacto" class="btn-corporativo">
+            Solicitar información
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="seccion-azul">
+  <div class="container text-center">
+    <h2 style="color:white; margin-bottom:16px">
+      ¿Necesitas un servicio personalizado?
+    </h2>
+    <p style="color:rgba(255,255,255,0.8); margin-bottom:32px">
+      Contáctanos y diseñamos una solución a tu medida.
+    </p>
+    <a routerLink="/contacto" class="btn-acento">Contactar ahora</a>
+  </div>
+</section>
+
+<app-footer></app-footer>
